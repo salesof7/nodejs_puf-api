@@ -1,5 +1,5 @@
 {
-  "./src/**/*.{js,md,json}": [
+  "./src/**/*.{js,ts,md,json}": [
     "yarn fix"
   ]
 }
