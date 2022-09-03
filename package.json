@@ -14,7 +14,7 @@
     "lint": "yarn fix:lint 'src/**/*.(js|ts|md|json)'",
     "prebuild": "rm -rf ./dist",
     "build": "babel src --extensions \".js\" --ignore \"*.spec.js,*.test.js\" --out-dir dist --copy-files",
-    "dev": "nodemon --exec babel-node src/index.js"
+    "dev": "nodemon --exec babel-node -- -r dotenv-safe/config src/index.js"
   },
   "license": "MIT",
   "devDependencies": {
@@ -40,6 +40,8 @@
   },
   "dependencies": {
     "@koa/router": "^12.0.0",
+    "dotenv": "^16.0.2",
+    "dotenv-safe": "^8.2.0",
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0"
   }
