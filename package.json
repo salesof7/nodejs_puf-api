@@ -14,7 +14,8 @@
     "lint": "yarn fix:lint 'src/**/*.(js|ts|md|json)'",
     "prebuild": "rm -rf ./dist",
     "build": "babel src --extensions \".js\" --ignore \"*.spec.js,*.test.js\" --out-dir dist --copy-files",
-    "dev": "nodemon --exec babel-node -- -r dotenv-safe/config src/index.js"
+    "dev": "nodemon --exec babel-node -- -r dotenv-safe/config src/index.js",
+    "migrate": "yarn prisma migrate dev --preview-feature"
   },
   "license": "MIT",
   "devDependencies": {
