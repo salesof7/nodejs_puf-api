@@ -1,15 +1,17 @@
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
-import { prisma } from "../../data";
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import { prisma } from '../../data';
 
 export const login = async (ctx) => {
   try {
-    const { email } = ctx.request.body;
+    const { email, password } = ctx.request.body;
     const user = await prisma.user.findUnique({
       where: { email },
     });
 
-    if (!user) {
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (!user || !passwordMatch) {
       ctx.status = 404;
       return;
     }
@@ -19,7 +21,7 @@ export const login = async (ctx) => {
     ctx.body = { user, token };
   } catch (error) {
     ctx.status = 500;
-    ctx.body = "Something went wrong, try again!";
+    ctx.body = 'Something went wrong, try again!';
   }
 };
 
@@ -29,7 +31,7 @@ export const list = async (ctx) => {
     ctx.body = users;
   } catch (error) {
     ctx.status = 500;
-    ctx.body = "Something went wrong, try again!";
+    ctx.body = 'Something went wrong, try again!';
   }
 };
 
@@ -53,7 +55,7 @@ export const create = async (ctx) => {
     ctx.body = user;
   } catch (error) {
     ctx.status = 500;
-    ctx.body = "Something went wrong, try again!";
+    ctx.body = 'Something went wrong, try again!';
   }
 };
 
@@ -68,7 +70,7 @@ export const update = async (ctx) => {
     ctx.body = user;
   } catch (error) {
     ctx.status = 500;
-    ctx.body = "Something went wrong, try again!";
+    ctx.body = 'Something went wrong, try again!';
   }
 };
 
@@ -80,6 +82,6 @@ export const remove = async (ctx) => {
     ctx.body = { id: ctx.params.id };
   } catch (error) {
     ctx.status = 500;
-    ctx.body = "Something went wrong, try again!";
+    ctx.body = 'Something went wrong, try again!';
   }
 };

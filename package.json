@@ -8,8 +8,8 @@
   },
   "scripts": {
     "fix": "run-s \"fix:* {@}\" --",
-    "fix:lint": "eslint --fix --no-error-on-unmatched-pattern",
-    "fix:format": "prettier --write",
+    "fix:lint": "eslint --fix",
+    "fix:format": "prettier --write --single-quote",
     "format": "yarn fix:format 'src/**/*.(js|ts|md|json)'",
     "lint": "yarn fix:lint 'src/**/*.(js|ts|md|json)'",
     "prebuild": "rm -rf ./dist",

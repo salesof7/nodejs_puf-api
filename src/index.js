@@ -1,7 +1,7 @@
-import Koa from "koa";
-import bodyParser from "koa-bodyparser";
+import Koa from 'koa';
+import bodyParser from 'koa-bodyparser';
 
-import { router } from "./routes";
+import { router } from './routes';
 
 const app = new Koa();
 
