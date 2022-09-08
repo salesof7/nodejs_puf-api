@@ -13,9 +13,14 @@ export const login = async (ctx) => {
       where: { email },
     });
 
+    if (!user) {
+      ctx.status = 404;
+      return;
+    }
+
     const passwordMatch = await bcrypt.compare(password, user.password);
 
-    if (!user || !passwordMatch) {
+    if (!passwordMatch) {
       ctx.status = 404;
       return;
     }
