@@ -1,7 +1,9 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+
 import { prisma } from '../../data';
 import { decodeBasicToken, customErrors } from './services';
+import './model';
 
 export const login = async (ctx) => {
   try {
@@ -10,7 +12,7 @@ export const login = async (ctx) => {
     );
 
     const user = await prisma.user.findUnique({
-      where: { email },
+      where: { email, password },
     });
 
     if (!user) {
@@ -18,12 +20,12 @@ export const login = async (ctx) => {
       return;
     }
 
-    const passwordMatch = await bcrypt.compare(password, user.password);
+    // const passwordMatch = await bcrypt.compare(password, user.password);
 
-    if (!passwordMatch) {
-      ctx.status = 404;
-      return;
-    }
+    // if (!passwordMatch) {
+    //   ctx.status = 404;
+    //   return;
+    // }
 
     const token = jwt.sign({ sub: user.id }, process.env.JWT_SECRET);
 
