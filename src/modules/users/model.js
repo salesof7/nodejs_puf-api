@@ -1,17 +1,7 @@
 import bcrypt from 'bcrypt';
-import { prisma } from '../../data/index';
+import { omit } from 'ramda';
 
-const omit = (keys, obj) =>
-  Object.keys(obj).reduce(
-    (acc, current) =>
-      keys.includes(current)
-        ? acc
-        : {
-            ...acc,
-            [current]: obj[current],
-          },
-    {}
-  );
+import { prisma } from '../../data/index';
 
 const passwordCheck = async (params, next) => {
   const { password: passwordPlainText, ...where } = params.args.where;
@@ -62,3 +52,9 @@ prisma.$use(async (params, next) => {
 
   return result;
 });
+
+export const { findUnique } = prisma.user;
+export const { findMany } = prisma.user;
+export const { create } = prisma.user;
+export const { update } = prisma.user;
+export const remove = prisma.user.delete;
